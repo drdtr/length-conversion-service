@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: length-conversion-service
+server:
+  servlet:
+    context-path: /api/length-conversion-service/v1
+
+length.units:
+  base.symbol: m
+  csv.file.path: length-units.csv
+  decimal.places: 5

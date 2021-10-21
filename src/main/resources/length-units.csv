@@ -1,0 +1,8 @@
+m, meter, 1.0
+cm, centimeter, 0.01
+mm, millimeter, 0.001
+km, kilometer, 1000
+in, inch, 0.0254
+ft, foot, 0.3048
+yd, yard, 0.9144
+mi, mile, 1609.344
