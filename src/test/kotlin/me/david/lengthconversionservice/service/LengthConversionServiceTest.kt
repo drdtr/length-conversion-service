@@ -65,7 +65,7 @@ class LengthConversionServiceTest {
     fun `test convertLengthUnit`(sourceSymbol: String, targetSymbol: String, expectedCoefficient: Double) {
         val sourceValue = BigDecimal("123.4567")
 
-        val expectedTargetValue = sourceValue.multiply(expectedCoefficient.toBigDecimal()).setScale(DECIMAL_PLACES, HALF_UP)
+        val expectedTargetValue = (sourceValue * expectedCoefficient.toBigDecimal()).setScale(DECIMAL_PLACES, HALF_UP)
         val res = lengthConversionService.convertLengthUnit(sourceValue, sourceSymbol, targetSymbol)
 
         assertEquals(sourceValue, res.sourceValue)

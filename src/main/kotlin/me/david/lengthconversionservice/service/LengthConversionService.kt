@@ -36,7 +36,7 @@ class LengthConversionService(
     fun convertLengthUnit(sourceValue: BigDecimal, sourceSymbol: String, targetSymbol: String): LengthUnitConversionResult {
         val sourceUnit = getLengthUnit(sourceSymbol)
         val targetUnit = getLengthUnit(targetSymbol)
-        val targetValue = sourceValue.multiply(sourceUnit.conversionFactor).divide(targetUnit.conversionFactor, decimalPlaces, HALF_UP)
+        val targetValue = (sourceValue * sourceUnit.conversionFactor).divide(targetUnit.conversionFactor, decimalPlaces, HALF_UP)
         return LengthUnitConversionResult(sourceValue, sourceSymbol, targetValue, targetSymbol)
     }
 }
