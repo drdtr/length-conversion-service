@@ -3,7 +3,7 @@ package me.david.lengthconversionservice.service
 import io.mockk.every
 import io.mockk.mockk
 import me.david.lengthconversionservice.model.LengthUnit
-import me.david.lengthconversionservice.unitloader.LengthUnitLoader
+import me.david.lengthconversionservice.unitloader.LengthUnitProvider
 import org.hamcrest.MatcherAssert.*
 import org.hamcrest.text.MatchesPattern
 import org.junit.jupiter.api.Test
@@ -20,8 +20,9 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class LengthConversionServiceTest {
-    private val lengthUnitLoader = mockk<LengthUnitLoader> {
+    private val lengthUnitLoader = mockk<LengthUnitProvider> {
         every { lengthUnits } returns LENGTH_UNITS
+        every { getLengthUnitBySymbol(any()) } answers { LENGTH_UNITS.find { it.symbol == args.first() } }
     }
 
     private val lengthConversionService = LengthConversionService(lengthUnitLoader, BASE_UNIT_SYMBOL, DECIMAL_PLACES)
