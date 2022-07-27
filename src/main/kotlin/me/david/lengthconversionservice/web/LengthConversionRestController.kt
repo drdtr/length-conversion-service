@@ -41,7 +41,7 @@ class LengthConversionRestController(private val lengthConversionService: Length
 
 
     companion object {
-        internal const val URL_RESOURCE = "/length-unit/"
+        internal const val URL_RESOURCE = "/length-unit"
         internal const val PARAM_UNIT_SYMBOL = "unit-symbol"
         internal const val PARAM_UNIT_SYMBOL_SOURCE = "source-unit-symbol"
         internal const val PARAM_UNIT_SYMBOL_TARGET = "target-unit-symbol"

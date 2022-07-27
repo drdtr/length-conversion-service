@@ -6,7 +6,6 @@ import io.mockk.every
 import me.david.lengthconversionservice.model.LengthUnit
 import me.david.lengthconversionservice.model.LengthUnitConversionResult
 import me.david.lengthconversionservice.service.LengthConversionService
-import me.david.lengthconversionservice.web.LengthConversionRestController.*
 import me.david.lengthconversionservice.web.LengthConversionRestController.Companion.URL_UNIT
 import me.david.lengthconversionservice.web.LengthConversionRestController.Companion.URL_UNIT_BASE
 import me.david.lengthconversionservice.web.LengthConversionRestController.Companion.URL_UNIT_CONVERT
@@ -15,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import java.math.BigDecimal
 
@@ -65,13 +62,13 @@ class LengthConversionRestControllerTest {
 
         mockMvc.perform(get(URL_UNIT, unitSymbol))
                 .andExpect(status().isBadRequest)
-                .andExpect(content().json("{ message : '$errMsg' }"))
+                .andExpect(content().json("{ \"message\" : \"$errMsg\" }"))
     }
 
     @Test
     fun `test getLengthUnitConversionResult`() {
         val sourceUnitSymbol = "sourceUnitSymbol"
-        val sourceValue = BigDecimal(1.23)
+        val sourceValue = BigDecimal("1.23")
         val targetUnitSymbol = "targetUnitSymbol"
         val targetValue = BigDecimal(321)
         val expected = LengthUnitConversionResult(sourceValue, sourceUnitSymbol, targetValue, targetUnitSymbol)
@@ -85,13 +82,13 @@ class LengthConversionRestControllerTest {
     @Test
     fun `test getLengthUnitConversionResult, bad request`() {
         val sourceUnitSymbol = "sourceUnitSymbol"
-        val sourceValue = BigDecimal(1.23)
+        val sourceValue = BigDecimal("12.34")
         val targetUnitSymbol = "targetUnitSymbol"
         val errMsg = "Some error"
         every { serviceMock.convertLengthUnit(sourceValue, sourceUnitSymbol, targetUnitSymbol) } throws IllegalArgumentException(errMsg)
 
         mockMvc.perform(get(URL_UNIT_CONVERT, sourceUnitSymbol, sourceValue, targetUnitSymbol))
                 .andExpect(status().isBadRequest)
-                .andExpect(content().json("{ message : '$errMsg' }"))
+                .andExpect(content().json("{ \"message\" : \"$errMsg\" }"))
     }
 }
